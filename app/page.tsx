@@ -4,9 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import Sidebar, { Conversation } from "@/components/Sidebar";
 import ChatArea from "@/components/ChatArea";
 import Composer from "@/components/Composer";
+import MarketingTeam from "@/components/MarketingTeam";
 
-export type Mode = "image" | "video";
-export type Provider = "gemini" | "grok";
+export type Mode = "image" | "video" | "marketing";
+export type Provider = "gemini" | "grok" | "claude";
 
 export type Message = {
   id: string;
@@ -65,9 +66,10 @@ export default function Page() {
     } catch {}
   }, [conversations]);
 
-  // Video only supported by Gemini
+  // Video only supported by Gemini; Marketing uses Claude
   useEffect(() => {
     if (mode === "video" && provider !== "gemini") setProvider("gemini");
+    if (mode === "marketing" && provider !== "claude") setProvider("claude");
   }, [mode, provider]);
 
   const active = conversations.find((c) => c.id === activeId);
@@ -173,19 +175,50 @@ export default function Page() {
               </button>
             )}
             <span className="font-medium">AI Studio</span>
-            <span className="text-xs text-zinc-500">· Image & Video Generation</span>
+            <span className="text-xs text-zinc-500">
+              · {mode === "marketing" ? "Marketing Team" : "Image & Video Generation"}
+            </span>
+          </div>
+
+          {/* Top-level mode tabs */}
+          <div className="flex items-center gap-1 rounded-full border border-line/60 p-0.5">
+            <button
+              onClick={() => setMode("image")}
+              className={`rounded-full px-3 py-1 text-xs transition-colors ${
+                mode === "image" || mode === "video"
+                  ? "bg-bg-hover text-zinc-100"
+                  : "text-zinc-400 hover:text-zinc-200"
+              }`}
+            >
+              🎨 Create
+            </button>
+            <button
+              onClick={() => setMode("marketing")}
+              className={`rounded-full px-3 py-1 text-xs transition-colors ${
+                mode === "marketing"
+                  ? "bg-gradient-to-r from-purple-600/80 to-pink-600/80 text-white"
+                  : "text-zinc-400 hover:text-zinc-200"
+              }`}
+            >
+              🚀 Marketing Team
+            </button>
           </div>
         </header>
 
-        <ChatArea messages={active?.messages || []} />
-
-        <Composer
-          mode={mode}
-          provider={provider}
-          onModeChange={setMode}
-          onProviderChange={setProvider}
-          onSend={send}
-        />
+        {mode === "marketing" ? (
+          <MarketingTeam />
+        ) : (
+          <>
+            <ChatArea messages={active?.messages || []} />
+            <Composer
+              mode={mode}
+              provider={provider}
+              onModeChange={setMode}
+              onProviderChange={setProvider}
+              onSend={send}
+            />
+          </>
+        )}
       </main>
     </div>
   );

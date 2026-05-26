@@ -93,7 +93,7 @@ export default function Sidebar({
 
       <div className="border-t border-line/60 p-3 text-xs text-zinc-500">
         <div className="font-medium text-zinc-400">AI Studio</div>
-        <div>Gemini · Grok · Veo</div>
+        <div>Gemini · Grok · Claude · Veo</div>
       </div>
     </aside>
   );
