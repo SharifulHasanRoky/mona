@@ -1,234 +1,164 @@
-# Mona - Marketing Agency MCP Server
+# Mona — Marketing Agency Plugin for Claude
 
-> A Claude plugin (MCP server) that provides 100 marketing agency skills/roles as AI tools. Use it with Claude Desktop, Claude Code, or any MCP-compatible AI assistant.
+> 100 marketing agency skills as a Claude Code plugin. Install once, invoke any marketing expert role with a slash command.
 
-## What is this?
-
-Mona is an MCP (Model Context Protocol) server that gives AI assistants access to **100 professional marketing agency roles** — from Brand Strategist to Agency CEO. Each role comes with a complete system prompt including expertise, step-by-step instructions, output format, and example prompts.
-
-## 5 Tools Available
-
-| Tool | Description |
-|------|-------------|
-| `list_marketing_skills` | List all 100 skills grouped by category |
-| `get_marketing_skill` | Get full skill definition by number (1-100) |
-| `search_marketing_skills` | Search skills by keyword |
-| `get_skills_by_category` | Get all skills in a category (strategy, content, digital, operations) |
-| `use_marketing_skill` | Activate a role — AI becomes that marketing expert |
-
-## Skill Categories
-
-| # | Category | Roles |
-|---|----------|-------|
-| 001-025 | **Strategy & Planning** | Brand Strategist, Market Research, GTM, Positioning, Growth, CRM... |
-| 026-050 | **Content & Creative** | Copywriter, SEO Content, Video, Podcasts, UX Writing, Design... |
-| 051-075 | **Digital Marketing & Analytics** | PPC, Paid Social, SEO, Analytics, CRO, Programmatic, AI Marketing... |
-| 076-100 | **Client Management & Operations** | Account Management, PR, Crisis Comms, MarTech, Fractional CMO, CEO... |
-
-## Installation
-
-### 1. Clone and Build
+## Install
 
 ```bash
-git clone https://github.com/SharifulHasanRoky/mona.git
-cd mona
-npm install
-npm run build
+claude plugin add SharifulHasanRoky/mona
 ```
 
-### 2. Configure Claude Desktop
+## Usage
 
-Add to your Claude Desktop config file:
-
-**macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
-**Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
-
-```json
-{
-  "mcpServers": {
-    "mona-marketing-agency": {
-      "command": "node",
-      "args": ["/absolute/path/to/mona/dist/index.js"]
-    }
-  }
-}
-```
-
-### 3. Configure Claude Code
-
-```bash
-claude mcp add mona-marketing-agency node /absolute/path/to/mona/dist/index.js
-```
-
-### Alternative: npx (after npm publish)
-
-```json
-{
-  "mcpServers": {
-    "mona-marketing-agency": {
-      "command": "npx",
-      "args": ["mona-marketing-agency-mcp"]
-    }
-  }
-}
-```
-
-## Usage Examples
-
-Once connected, ask Claude:
-
-- *"List all marketing skills available"*
-- *"I need help with SEO strategy — find the right skill"*
-- *"Use skill #26 (Copywriter) to write landing page copy for my SaaS product"*
-- *"Act as a Brand Strategist and develop positioning for my startup"*
-- *"Show me all digital marketing skills"*
-- *"Search for skills related to social media"*
-
-## How It Works
+Once installed, use any skill as a slash command in Claude Code:
 
 ```
-┌─────────────────┐     stdio      ┌──────────────────────┐
-│  Claude Desktop │ ◄────────────► │  Mona MCP Server     │
-│  or Claude Code │                │                      │
-└─────────────────┘                │  ┌────────────────┐  │
-                                   │  │ 100 MD Skills  │  │
-                                   │  └────────────────┘  │
-                                   │                      │
-                                   │  5 Tools:            │
-                                   │  - list              │
-                                   │  - get               │
-                                   │  - search            │
-                                   │  - category          │
-                                   │  - use/activate      │
-                                   └──────────────────────┘
+/brand-strategist
+/copywriter
+/seo-strategist
+/growth-strategist
+/paid-social-specialist
 ```
 
-## Project Structure
-
-```
-mona/
-├── src/
-│   ├── index.ts          # MCP server with 5 tools
-│   └── skills.ts         # Skills loader and categorizer
-├── marketing-agency-skills/
-│   ├── 001-brand-strategist.md
-│   ├── 002-market-research-analyst.md
-│   ├── ...
-│   └── 100-marketing-agency-ceo.md
-├── package.json
-├── tsconfig.json
-└── README.md
-```
+Or let Claude auto-select the right skill based on your task.
 
 ## All 100 Skills
 
-<details>
-<summary>Click to expand full list</summary>
+### Strategy & Planning (001–025)
 
-| # | Skill |
-|---|-------|
-| 001 | Brand Strategist |
-| 002 | Market Research Analyst |
-| 003 | Marketing Strategist |
-| 004 | Target Audience Analyst |
-| 005 | Competitive Intelligence Specialist |
-| 006 | Campaign Planner |
-| 007 | Media Planner |
-| 008 | Creative Director |
-| 009 | Positioning Specialist |
-| 010 | Go-to-Market Strategist |
-| 011 | Customer Journey Mapper |
-| 012 | Pricing Strategist |
-| 013 | Growth Strategist |
-| 014 | Digital Transformation Consultant |
-| 015 | Marketing Budget Analyst |
-| 016 | Marketing Automation Specialist |
-| 017 | CRM Strategist |
-| 018 | Partnership Marketing Strategist |
-| 019 | Event Marketing Strategist |
-| 020 | Product Marketing Manager |
-| 021 | Market Entry Strategist |
-| 022 | Brand Messaging Architect |
-| 023 | Customer Insights Strategist |
-| 024 | Seasonal Campaign Specialist |
-| 025 | Marketing Operations Specialist |
-| 026 | Copywriter |
-| 027 | Content Strategist |
-| 028 | SEO Content Specialist |
-| 029 | Social Media Content Creator |
-| 030 | Email Marketing Specialist |
-| 031 | Video Content Strategist |
-| 032 | Blog Content Writer |
-| 033 | Podcast Producer |
-| 034 | Graphic Designer |
-| 035 | UX Writer |
-| 036 | Storytelling Specialist |
-| 037 | Thought Leadership Writer |
-| 038 | Press Release Writer |
-| 039 | Case Study Writer |
-| 040 | Whitepaper Author |
-| 041 | Infographic Designer |
-| 042 | Newsletter Editor |
-| 043 | Content Repurposing Specialist |
-| 044 | Brand Voice Specialist |
-| 045 | Landing Page Specialist |
-| 046 | Presentation Designer |
-| 047 | Ad Creative Specialist |
-| 048 | Scriptwriter |
-| 049 | Interactive Content Designer |
-| 050 | Content Calendar Manager |
-| 051 | PPC Specialist |
-| 052 | Paid Social Specialist |
-| 053 | SEO Strategist |
-| 054 | Analytics Specialist |
-| 055 | Conversion Rate Optimizer |
-| 056 | Social Media Ads Analyst |
-| 057 | Influencer Marketing Manager |
-| 058 | Programmatic Advertising Specialist |
-| 059 | Marketing Data Analyst |
-| 060 | Affiliate Marketing Manager |
-| 061 | Community Manager |
-| 062 | E-commerce Marketing Specialist |
-| 063 | Marketing Attribution Analyst |
-| 064 | Local SEO Specialist |
-| 065 | A/B Testing Specialist |
-| 066 | Web Analytics Consultant |
-| 067 | Reputation Manager |
-| 068 | Social Listening Analyst |
-| 069 | Marketing Dashboard Designer |
-| 070 | Customer Acquisition Specialist |
-| 071 | Retention Marketing Specialist |
-| 072 | AI Marketing Specialist |
-| 073 | Mobile Marketing Specialist |
-| 074 | Search Engine Marketing Strategist |
-| 075 | Performance Marketing Director |
-| 076 | Account Manager |
-| 077 | New Business Developer |
-| 078 | Project Manager |
-| 079 | Client Strategist |
-| 080 | Proposal Writer |
-| 081 | Marketing Consultant |
-| 082 | Crisis Communications Manager |
-| 083 | Public Relations Specialist |
-| 084 | Agency Operations Director |
-| 085 | Marketing Talent Recruiter |
-| 086 | Client Reporting Specialist |
-| 087 | Scope of Work Specialist |
-| 088 | Marketing Trainer |
-| 089 | Vendor Manager |
-| 090 | Brand Compliance Officer |
-| 091 | Marketing Technology Manager |
-| 092 | Quality Assurance Specialist |
-| 093 | Agency Growth Strategist |
-| 094 | Client Onboarding Specialist |
-| 095 | Marketing Legal Advisor |
-| 096 | Sustainability Marketing Specialist |
-| 097 | Diversity & Inclusion Marketing Specialist |
-| 098 | Marketing Workflow Designer |
-| 099 | Fractional CMO |
-| 100 | Marketing Agency CEO |
+| Command | Role |
+|---------|------|
+| `/brand-strategist` | Brand positioning, messaging, identity |
+| `/market-research-analyst` | Research, surveys, consumer insights |
+| `/marketing-strategist` | Integrated marketing planning |
+| `/target-audience-analyst` | Segmentation, personas, profiling |
+| `/competitive-intelligence-specialist` | Competitor monitoring & analysis |
+| `/campaign-planner` | Multi-channel campaign design |
+| `/media-planner` | Media strategy & budget allocation |
+| `/creative-director` | Creative vision & concept development |
+| `/positioning-specialist` | Market positioning & differentiation |
+| `/go-to-market-strategist` | Launch & GTM strategy |
+| `/customer-journey-mapper` | Touchpoint & experience mapping |
+| `/pricing-strategist` | Pricing models & revenue optimization |
+| `/growth-strategist` | Growth experiments & scaling |
+| `/digital-transformation-consultant` | MarTech & digital modernization |
+| `/marketing-budget-analyst` | Budget allocation & ROI analysis |
+| `/marketing-automation-specialist` | Workflows, drips, lead scoring |
+| `/crm-strategist` | Retention, loyalty, lifecycle |
+| `/partnership-marketing-strategist` | Co-marketing & partnerships |
+| `/event-marketing-strategist` | Virtual & in-person events |
+| `/product-marketing-manager` | Product positioning & launches |
+| `/market-entry-strategist` | New market expansion |
+| `/brand-messaging-architect` | Messaging hierarchies & frameworks |
+| `/customer-insights-strategist` | Deep customer truths & research |
+| `/seasonal-campaign-specialist` | Holiday & seasonal campaigns |
+| `/marketing-ops-specialist` | Processes, workflows, governance |
 
-</details>
+### Content & Creative (026–050)
+
+| Command | Role |
+|---------|------|
+| `/copywriter` | Persuasive copy, headlines, CTAs |
+| `/content-strategist` | Content planning & editorial strategy |
+| `/seo-content-specialist` | SEO-optimized content creation |
+| `/social-media-content-creator` | Platform-native social content |
+| `/email-marketing-specialist` | Email campaigns & sequences |
+| `/video-content-strategist` | Video strategy & scripting |
+| `/blog-content-writer` | Long-form blog writing |
+| `/podcast-producer` | Podcast strategy & episode planning |
+| `/graphic-designer` | Visual concepts & design direction |
+| `/ux-writer` | Microcopy & interface writing |
+| `/storytelling-specialist` | Brand narratives & emotional stories |
+| `/thought-leadership-writer` | Executive ghostwriting & bylines |
+| `/press-release-writer` | PR writing & media pitches |
+| `/case-study-writer` | Customer success stories |
+| `/whitepaper-author` | Research-driven long-form content |
+| `/infographic-designer` | Data visualization & infographics |
+| `/newsletter-editor` | Newsletter strategy & writing |
+| `/content-repurposing-specialist` | Content atomization & adaptation |
+| `/brand-voice-specialist` | Voice & tone guidelines |
+| `/landing-page-specialist` | High-converting landing pages |
+| `/presentation-designer` | Pitch decks & presentations |
+| `/ad-creative-specialist` | Ad concepts & creative testing |
+| `/scriptwriter` | Video & audio scripts |
+| `/interactive-content-designer` | Quizzes, calculators, assessments |
+| `/content-calendar-manager` | Editorial calendars & scheduling |
+
+### Digital Marketing & Analytics (051–075)
+
+| Command | Role |
+|---------|------|
+| `/ppc-specialist` | Google Ads & paid search |
+| `/paid-social-specialist` | Meta, TikTok, LinkedIn ads |
+| `/seo-strategist` | Technical & on-page SEO |
+| `/analytics-specialist` | GA4, tracking, dashboards |
+| `/conversion-rate-optimizer` | CRO, A/B testing, funnel optimization |
+| `/social-media-ads-analyst` | Paid social performance analysis |
+| `/influencer-marketing-manager` | Influencer partnerships & campaigns |
+| `/programmatic-advertising-specialist` | DSP, programmatic, CTV |
+| `/marketing-data-analyst` | Data analysis & modeling |
+| `/affiliate-marketing-manager` | Affiliate programs & partnerships |
+| `/community-manager` | Community building & engagement |
+| `/ecommerce-marketing-specialist` | E-commerce & DTC marketing |
+| `/marketing-attribution-analyst` | Attribution & incrementality |
+| `/local-seo-specialist` | Local search & Google Business |
+| `/ab-testing-specialist` | Experiment design & statistics |
+| `/web-analytics-consultant` | GA4 setup & behavioral analysis |
+| `/reputation-manager` | Online reputation & review management |
+| `/social-listening-analyst` | Social monitoring & sentiment |
+| `/marketing-dashboard-designer` | Dashboard design & KPI frameworks |
+| `/customer-acquisition-specialist` | CAC optimization & channel strategy |
+| `/retention-marketing-specialist` | Churn reduction & loyalty |
+| `/ai-marketing-specialist` | AI tools & automation for marketing |
+| `/mobile-marketing-specialist` | App marketing, SMS, push |
+| `/search-engine-marketing-strategist` | Integrated SEO + PPC strategy |
+| `/performance-marketing-director` | Multi-channel performance oversight |
+
+### Client Management & Operations (076–100)
+
+| Command | Role |
+|---------|------|
+| `/account-manager` | Client relationship management |
+| `/new-business-developer` | Pitching & winning new clients |
+| `/project-manager` | Project planning & delivery |
+| `/client-strategist` | Strategic roadmaps for clients |
+| `/proposal-writer` | Proposals & RFP responses |
+| `/marketing-consultant` | Advisory & transformation |
+| `/crisis-communications-manager` | Crisis response & reputation repair |
+| `/public-relations-specialist` | PR strategy & media relations |
+| `/agency-operations-director` | Internal operations & efficiency |
+| `/talent-recruiter` | Hiring marketing talent |
+| `/client-reporting-specialist` | Performance reporting & insights |
+| `/scope-of-work-specialist` | SOW writing & scope management |
+| `/marketing-trainer` | Training & skill development |
+| `/vendor-manager` | Vendor evaluation & management |
+| `/brand-compliance-officer` | Brand & regulatory compliance |
+| `/marketing-technology-manager` | MarTech stack management |
+| `/quality-assurance-specialist` | QA processes & checklists |
+| `/agency-growth-strategist` | Agency growth & positioning |
+| `/client-onboarding-specialist` | Client onboarding processes |
+| `/marketing-legal-advisor` | Marketing law & compliance |
+| `/sustainability-marketing-specialist` | Sustainability communications |
+| `/diversity-inclusion-marketing-specialist` | Inclusive marketing |
+| `/marketing-workflow-designer` | Workflow & approval processes |
+| `/fractional-cmo` | Executive marketing leadership |
+| `/marketing-agency-ceo` | Agency vision & business strategy |
+
+## Plugin Structure
+
+```
+mona/
+├── plugin.json
+├── README.md
+└── skills/
+    ├── brand-strategist/
+    │   └── SKILL.md
+    ├── copywriter/
+    │   └── SKILL.md
+    ├── seo-strategist/
+    │   └── SKILL.md
+    └── ... (100 total)
+```
 
 ## License
 

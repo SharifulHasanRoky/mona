@@ -1,0 +1,8 @@
+{
+  "name": "mona-marketing-agency",
+  "version": "1.0.0",
+  "description": "100 marketing agency skills/roles for Claude. Activate any marketing expert role with /marketing-[skill-name].",
+  "author": "SharifulHasanRoky",
+  "homepage": "https://github.com/SharifulHasanRoky/mona",
+  "license": "MIT"
+}
